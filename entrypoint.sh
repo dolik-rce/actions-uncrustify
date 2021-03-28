@@ -11,7 +11,7 @@ RED="\u001b[31m"
 GREEN="\u001b[32m"
 RESET="\u001b[0m"
 
-# Maintain support for uncrustify's ENV variable if it's passed in 
+# Maintain support for uncrustify's ENV variable if it's passed in
 # from the actions file. Otherwise the actions file could have the
 # configPath argument set
 if [[ -z $UNCRUSTIFY_CONFIG ]] && [[ -z $INPUT_CONFIGPATH ]]; then
@@ -40,7 +40,7 @@ while read -r FILENAME; do
     RETURN_VAL=$?
 
     # Stop allowing failures again
-    set -e 
+    set -e
 
     if [[ $RETURN_VAL -gt 0 ]]; then
         echo -e "${RED}${OUT} failed style checks.${RESET}"
@@ -49,6 +49,6 @@ while read -r FILENAME; do
     else
         echo -e "${GREEN}${OUT} passed style checks.${RESET}"
     fi
-done < <(git diff --name-status --diff-filter=AM origin/${DEFAULT_BRANCH}...${BRANCH_NAME} -- '*.cpp' '*.h' '*.hpp' '*.cxx' | awk '{ print $2 }' )
+done < <(git diff --name-status --diff-filter=AM origin/${DEFAULT_BRANCH}...${BRANCH_NAME} -- ${INPUT_FILEMASK} | awk '{ print $2 }' )
 
 exit $EXIT_VAL

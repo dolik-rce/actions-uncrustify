@@ -1,10 +1,14 @@
 name: 'C++ Style Check'
 description: 'Runs C++ style check with Uncrustify'
 author: 'coleaeason'
-inputs: 
+inputs:
   configPath:
     description: 'Alternate configuration file to use'
     required: false
+  fileMask:
+    description: 'Which files to check'
+    required: false
+    default: '*.cpp *.h *.hpp *.cxx'
 runs:
   using: 'docker'
   image: 'Dockerfile'
